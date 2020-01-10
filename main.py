@@ -1,4 +1,4 @@
-﻿import pandas as pd
+import pandas as pd
 import numpy as np
 
 train_data = pd.read_csv("dataset.csv", encoding='ANSI')
