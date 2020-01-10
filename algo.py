@@ -29,3 +29,17 @@ def spearman(x: pd.Series, y: pd.Series):
     r = 3 * d2.sum() / L / (L * L - 1)
     rs = 1 - 2 * r
     return rs
+
+
+def add_gaussian_noise(x: pd.Series, miu=0.0, sigma=1.0):
+    noise = np.random.randn(len(x)) * sigma + miu
+    return x + noise
+
+
+def add_ps_noise(x: pd.Series, percentage: float):
+    assert 0 <= percentage <= 1
+    positions = np.random.rand(len(x)) < percentage
+    maximum, minimum = x.max(), x.min()
+    result = x.copy()
+    result[positions] = np.random.choice((maximum, minimum), np.sum(positions))
+    return result
