@@ -31,14 +31,16 @@ def spearman(x: pd.Series, y: pd.Series):
     return rs
 
 
-def kendall(x:pd.Series,y: pd.Series):
+def kendall(x: pd.Series, y: pd.Series):
+    assert len(x) == len(y)
     L = len(x)
-    N = 0
-    for j in range(L)
-        for i in range(j+1 , L)
-            N +=np.sign((x[i]-x[j])*(y[i]-y[j]))
-    tau = 2*N/(L*(L-1))
+    x_, y_ = x.to_numpy().reshape(1, -1), y.to_numpy().reshape(1, -1)
+    xd = x_ - x_.transpose()
+    yd = y_ - y_.transpose()
+    N = np.sum(np.triu(np.sign(xd) * np.sign(yd)))
+    tau = 2 * N / (L * (L - 1))
     return tau
+
 
 def add_gaussian_noise(x: pd.Series, miu=0.0, sigma=1.0):
     noise = np.random.randn(len(x)) * sigma + miu
