@@ -31,6 +31,15 @@ def spearman(x: pd.Series, y: pd.Series):
     return rs
 
 
+def kendall(x:pd.Series,y: pd.Series):
+    L = len(x)
+    N = 0
+    for j in range(L)
+        for i in range(j+1 , L)
+            N +=np.sign((x[i]-x[j])*(y[i]-y[j]))
+    tau = 2*N/(L*(L-1))
+    return tau
+
 def add_gaussian_noise(x: pd.Series, miu=0.0, sigma=1.0):
     noise = np.random.randn(len(x)) * sigma + miu
     return x + noise
