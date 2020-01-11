@@ -47,10 +47,10 @@ def add_gaussian_noise(x: pd.Series, miu=0.0, sigma=1.0):
     return x + noise
 
 
-def add_ps_noise(x: pd.Series, percentage: float):
+def add_ps_noise(x: pd.Series, percentage: float, min_value=None, max_value=None):
     assert 0 <= percentage <= 1
     positions = np.random.rand(len(x)) < percentage
-    maximum, minimum = x.max(), x.min()
+    maximum, minimum = max_value or x.max(), min_value or x.min()
     result = x.copy()
     result[positions] = np.random.choice((maximum, minimum), np.sum(positions))
     return result
